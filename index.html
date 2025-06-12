@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TUR priminium-Style Shirt Store</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f1f3f6;
+      color: #212121;
+    }
+    header {
+      background-color: #232f3e;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .header-center {
+      font-family: 'Georgia', serif;
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #ffa41c;
+    }
+    .logo {
+      height: 50px;
+      border-radius: 50%;
+    }
+    .search-bar input {
+      width: 300px;
+      padding: 0.5rem;
+      border: none;
+      border-radius: 4px;
+    }
+    nav {
+      background-color: #37475a;
+      color: white;
+      padding: 0.5rem 2rem;
+      display: flex;
+      gap: 20px;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .filters {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1rem;
+    }
+    .filters select {
+      padding: 0.5rem;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .card {
+      background: #fff;
+      width: 260px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: 0.3s;
+      cursor: pointer;
+      position: relative;
+    }
+    .card:hover {
+      transform: scale(1.02);
+    }
+    .offer-tag {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: #ff4d4f;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    .card img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+    }
+    .card .info {
+      padding: 1rem;
+    }
+    .card h4 {
+      font-size: 16px;
+      margin-bottom: 0.5rem;
+    }
+    .card p {
+      font-size: 14px;
+      margin-bottom: 0.2rem;
+    }
+    .card .price {
+      font-weight: bold;
+      color: #B12704;
+    }
+    .card button {
+      background-color: #ffa41c;
+      border: none;
+      padding: 10px;
+      width: 100%;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 0.5rem;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      width: 90%;
+      max-width: 400px;
+      z-index: 1000;
+    }
+    .modal h3 { margin-bottom: 1rem; }
+    .modal input {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 8px;
+    }
+    .modal button {
+      margin-top: 5px;
+    }
+    footer {
+      background: #232f3e;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="https://i.ibb.co/mDFDn2g/tur-logo.jpg" class="logo" alt="TUR Logo">
+    <div class="header-center">TUR</div>
+    <div class="search-bar">
+      <input type="text" placeholder="Search for shirts...">
+    </div>
+  </header>
+
+  <nav>
+    <a onclick="filterCategory('All')">All</a>
+    <a onclick="filterCategory('Men')">Men</a>
+    <a onclick="filterCategory('Offers')">Offers</a>
+    <a onclick="filterCategory('New')">New Arrivals</a>
+  </nav>
+
+  <div class="filters">
+    <select onchange="filterSize(this.value)">
+      <option value="">Filter by Size</option>
+      <option value="S">Small</option>
+      <option value="M">Medium</option>
+      <option value="L">Large</option>
+      <option value="XL">Extra Large</option>
+    </select>
+    <select onchange="filterPrice(this.value)">
+      <option value="">Filter by Price</option>
+      <option value="300">Below ₹300</option>
+      <option value="500">Below ₹500</option>
+    </select>
+  </div>
+
+  <div class="container" id="shirtContainer"></div>
+
+  <div class="modal" id="modal">
+    <h3>Shirt Details</h3>
+    <div id="shirtDetails"></div>
+    <input type="text" placeholder="Your Address">
+    <input type="text" placeholder="Size (S/M/L/XL)">
+    <input type="text" placeholder="Preferred Color">
+    <button onclick="alert('Order placed - Cash on Delivery')">Buy Now</button>
+    <button onclick="closeModal()">Close</button>
+    <button onclick="goBack()">Back to Store</button>
+  </div>
+
+  <footer>
+    <p>Email: <a href="mailto:theturbrand@gmail.com" style="color: #ffa41c;">theturbrand@gmail.com</a></p>
+    <p>Instagram: <a href="https://instagram.com/officialis.tur" target="_blank" style="color: #ffa41c;">@officialis.tur</a></p>
+    <p>This website is not working for now. Thank you for visiting.</p>
+  </footer>
+
+  <script>
+    const shirts = Array.from({ length: 50 }, (_, i) => ({
+      image: `https://source.unsplash.com/400x400/?shirt&sig=${i}`,
+      brand: 'TUR Premium shirt',
+      type: i % 2 === 0 ? 'Casual' : 'Formal',
+      color: i % 3 === 0 ? 'Blue' : 'White',
+      quality: 'High Quality Cotton',
+      size: ['S', 'M', 'L', 'XL'][i % 4],
+      price: 299 + (i % 5) * 50,
+      category: i % 2 === 0 ? 'Men' : 'Women',
+      offer: i % 7 === 0 // Mark every 7th shirt as offer
+    }));
+
+    const container = document.getElementById('shirtContainer');
+
+    function renderShirts(list) {
+      container.innerHTML = '';
+      list.forEach((shirt, idx) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          ${shirt.offer ? '<div class="offer-tag">OFFER</div>' : ''}
+          <img src="${shirt.image}" onclick="showDetails(${idx})">
+          <div class="info">
+            <h4>${shirt.brand}</h4>
+            <p class="price">₹${shirt.price}</p>
+            <button onclick="showDetails(${idx})">View Details</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function filterCategory(cat) {
+      if (cat === 'All') renderShirts(shirts);
+      else if (cat === 'Offers') renderShirts(shirts.filter(s => s.offer));
+      else renderShirts(shirts.filter(s => s.category === cat));
+    }
+    function filterSize(size) {
+      if (!size) renderShirts(shirts);
+      else renderShirts(shirts.filter(s => s.size === size));
+    }
+    function filterPrice(price) {
+      const p = parseInt(price);
+      if (!p) renderShirts(shirts);
+      else renderShirts(shirts.filter(s => s.price <= p));
+    }
+    function showDetails(index) {
+      const s = shirts[index];
+      const detailBox = document.getElementById('shirtDetails');
+      detailBox.innerHTML = `
+        <p><strong>Brand:</strong> ${s.brand}</p>
+        <p><strong>Type:</strong> ${s.type}</p>
+        <p><strong>Color:</strong> ${s.color}</p>
+        <p><strong>Size:</strong> ${s.size}</p>
+        <p><strong>Material:</strong> ${s.quality}</p>
+        <p><strong>Price:</strong> ₹${s.price}</p>
+      `;
+      document.getElementById('modal').style.display = 'block';
+    }
+    function closeModal() {
+      document.getElementById('modal').style.display = 'none';
+    }
+    function goBack() {
+      closeModal();
+    }
+
+    renderShirts(shirts);
+  </script>
+</body>
+</html>
