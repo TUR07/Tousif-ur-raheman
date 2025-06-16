@@ -255,6 +255,30 @@
             display: block;
         }
 
+        /* Mobile Navigation */
+        .mobile-menu-btn {
+            display: none;
+            background: transparent;
+            border: none;
+            color: var(--white);
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .mobile-nav-container {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            background-color: rgba(26, 42, 58, 0.95);
+            padding: 15px;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 10px 15px rgba(0,0,0,0.2);
+        }
+
         /* Main Content */
         .main-container {
             max-width: 1400px;
@@ -973,6 +997,16 @@
             .hero-title {
                 font-size: 40px;
             }
+            
+            /* Hide desktop nav */
+            nav {
+                display: none;
+            }
+            
+            /* Show mobile menu button */
+            .mobile-menu-btn {
+                display: block;
+            }
         }
 
         @media (max-width: 768px) {
@@ -1021,6 +1055,33 @@
             .gallery-container {
                 grid-template-columns: repeat(2, 1fr);
             }
+            
+            .header-container {
+                padding: 10px 15px;
+            }
+            
+            .top-header {
+                padding-bottom: 10px;
+            }
+            
+            .logo-circle {
+                width: 45px;
+                height: 45px;
+                font-size: 22px;
+            }
+            
+            .store-name {
+                font-size: 24px;
+            }
+            
+            .action {
+                padding: 6px 10px;
+                font-size: 13px;
+            }
+            
+            .action i {
+                font-size: 20px;
+            }
         }
 
         @media (max-width: 576px) {
@@ -1030,10 +1091,6 @@
             
             .product-actions {
                 flex-direction: column;
-            }
-            
-            .nav-container {
-                justify-content: center;
             }
             
             .pagination {
@@ -1047,6 +1104,136 @@
             .form-row {
                 flex-direction: column;
                 gap: 0;
+            }
+            
+            .main-container {
+                padding: 0 15px;
+            }
+            
+            .filters {
+                padding: 15px;
+            }
+            
+            .filter-label {
+                font-size: 16px;
+            }
+            
+            .filter-select {
+                min-width: 140px;
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+            
+            .admin-btn {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+            
+            .hero-btn {
+                padding: 12px 30px;
+                font-size: 16px;
+            }
+            
+            .product-info {
+                padding: 20px;
+            }
+            
+            .product-price {
+                font-size: 22px;
+            }
+            
+            .product-price .original {
+                font-size: 16px;
+            }
+            
+            .footer-grid {
+                gap: 30px;
+            }
+            
+            .footer-column h3 {
+                font-size: 20px;
+            }
+            
+            .social-links a {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 28px;
+            }
+            
+            .hero-subtitle {
+                font-size: 16px;
+            }
+            
+            .logo-circle {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+            
+            .store-name {
+                font-size: 20px;
+            }
+            
+            .action {
+                padding: 5px 8px;
+                font-size: 12px;
+            }
+            
+            .action i {
+                font-size: 18px;
+            }
+            
+            .cart-count {
+                font-size: 10px;
+                padding: 2px 6px;
+            }
+            
+            .search-bar input {
+                padding: 12px 15px;
+            }
+            
+            .section-title {
+                font-size: 24px;
+            }
+            
+            .product-image-container {
+                height: 250px;
+            }
+            
+            .product-brand {
+                font-size: 16px;
+            }
+            
+            .product-title {
+                font-size: 15px;
+                min-height: 42px;
+            }
+            
+            .product-price {
+                font-size: 20px;
+            }
+            
+            .product-detail {
+                padding: 5px 10px;
+                font-size: 13px;
+            }
+            
+            .footer-column h3 {
+                font-size: 18px;
+            }
+            
+            .footer-column a {
+                font-size: 14px;
+            }
+            
+            .contact-info a {
+                font-size: 14px;
             }
         }
     </style>
@@ -1069,6 +1256,11 @@
                     <div class="logo-circle" id="logoCircle">TUR</div>
                     <div class="store-name" id="storeName">TUR Premium</div>
                 </a>
+                
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
                 <div class="search-bar">
                     <input type="text" placeholder="Search for shirts, sizes, brands...">
                     <button><i class="fas fa-search"></i></button>
@@ -1086,6 +1278,7 @@
                 </div>
             </div>
             
+            <!-- Desktop Navigation -->
             <nav>
                 <div class="nav-container">
                     <div class="nav-item active" data-category="all">
@@ -1127,6 +1320,47 @@
                     </div>
                 </div>
             </nav>
+            
+            <!-- Mobile Navigation -->
+            <div class="mobile-nav-container" id="mobileNavContainer">
+                <div class="nav-item active" data-category="all">
+                    <i class="fas fa-home"></i> All
+                </div>
+                <div class="nav-item" data-category="men">
+                    <i class="fas fa-male"></i> Men
+                </div>
+                <div class="nav-item" data-category="kids">
+                    <i class="fas fa-child"></i> Kids
+                </div>
+                <div class="nav-item" data-category="new">
+                    <i class="fas fa-star"></i> New Arrivals
+                </div>
+                <div class="dropdown">
+                    <div class="nav-item">
+                        <i class="fas fa-ruler"></i> Size <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="dropdown-content">
+                        <div data-size="32">32</div>
+                        <div data-size="34">34</div>
+                        <div data-size="36">36</div>
+                        <div data-size="S">Small (S)</div>
+                        <div data-size="M">Medium (M)</div>
+                        <div data-size="L">Large (L)</div>
+                        <div data-size="XL">XL</div>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <div class="nav-item">
+                        <i class="fas fa-tag"></i> Price <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="dropdown-content">
+                        <div data-price="300">Under ₹300</div>
+                        <div data-price="500">Under ₹500</div>
+                        <div data-price="700">Under ₹700</div>
+                        <div data-price="1000">Under ₹1000</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -1660,6 +1894,12 @@
             
             // Set up password strength indicator
             setupPasswordStrength();
+            
+            // Mobile menu toggle
+            document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+                const mobileNav = document.getElementById('mobileNavContainer');
+                mobileNav.style.display = mobileNav.style.display === 'flex' ? 'none' : 'flex';
+            });
         });
 
         // Check if admin is logged in
@@ -1741,6 +1981,8 @@
             const passwordInput = document.getElementById('loginPassword');
             const strengthMeter = document.querySelector('.strength-meter');
             
+            if (!strengthMeter) return;
+            
             passwordInput.addEventListener('input', function() {
                 const password = this.value;
                 let strength = 0;
@@ -1785,6 +2027,9 @@
                     
                     // Filter products
                     filterProducts();
+                    
+                    // Close mobile menu if open
+                    document.getElementById('mobileNavContainer').style.display = 'none';
                 });
             });
             
@@ -1793,6 +2038,9 @@
                 item.addEventListener('click', function() {
                     document.getElementById('sizeFilter').value = this.getAttribute('data-size');
                     filterProducts();
+                    
+                    // Close mobile menu if open
+                    document.getElementById('mobileNavContainer').style.display = 'none';
                 });
             });
             
@@ -1801,6 +2049,9 @@
                 item.addEventListener('click', function() {
                     document.getElementById('priceFilter').value = this.getAttribute('data-price');
                     filterProducts();
+                    
+                    // Close mobile menu if open
+                    document.getElementById('mobileNavContainer').style.display = 'none';
                 });
             });
             
@@ -1907,6 +2158,18 @@
             // Admin dashboard button
             document.getElementById('adminDashboard').addEventListener('click', function() {
                 alert('Admin Dashboard:\n\nYou can manage all website content, products, and settings from here.');
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(e) {
+                const mobileNav = document.getElementById('mobileNavContainer');
+                const menuBtn = document.getElementById('mobileMenuBtn');
+                
+                if (mobileNav.style.display === 'flex' && 
+                    !mobileNav.contains(e.target) && 
+                    !menuBtn.contains(e.target)) {
+                    mobileNav.style.display = 'none';
+                }
             });
         }
 
